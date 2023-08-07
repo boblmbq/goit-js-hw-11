@@ -1,3 +1,4 @@
 export const refs = {
-  form: document.querySelector("form")
+  form: document.querySelector("form"),
+  galleryEl: document.querySelector(".gallery")
 }
