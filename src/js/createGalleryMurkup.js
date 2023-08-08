@@ -1,5 +1,4 @@
 export function createGalleryMurkup(array) {
-  console.log(array);
   return array
     .map(
       ({
@@ -11,24 +10,24 @@ export function createGalleryMurkup(array) {
         largeImageURL,
         webformatURL,
       }) => {
-        return `<li>
-          <img src="${webformatURL}" srcset="${largeImageURL} 1280w" alt="${tags}" />
-          <ul>
-            <li>
-              <h1>likes</h1>
-              <p>${likes}</p>
+        return `<li class="gallery-item">
+          <img class="gallery-img" src="${webformatURL}" alt="${tags}" />
+          <ul class="gallery-img-descr">
+            <li class="img-descr-likes">
+              <h1 class="descr-likes-title">likes</h1>
+              <p class="descr-likes-amount">${likes}</p>
             </li>
-            <li>
-              <h1>views</h1>
-              <p>${views}</p>
+            <li class="img-descr-views">
+              <h1 class="descr-views-title">views</h1>
+              <p class="descr-views-amount">${views}</p>
             </li>
-            <li>
-              <h1>comments</h1>
-              <p>${comments}</p>
+            <li class="img-descr-comments">
+              <h1 class="descr-comments-title">comments</h1>
+              <p class="descr-comments-amount">${comments}</p>
             </li>
-            <li>
-              <h1>downloads</h1>
-              <p>${downloads}</p>
+            <li class="img-descr-downloads">
+              <h1 class="descr-comments-title">downloads</h1>
+              <p class="descr-comments-amount">${downloads}</p>
             </li>
           </ul>
         </li>`;
