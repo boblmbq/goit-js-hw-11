@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { refs } from './refs';
 
 export class api {
   constructor() {
@@ -12,25 +11,21 @@ export class api {
   page = 1;
   per_page = 40;
 
-  params = new URLSearchParams({
+  params = {
     key: '38611269-e32dffa05ef058278d905c8af',
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
     page: this.page,
     per_page: this.per_page,
-  });
+  };
 
-  async allIn() {
-    if (this._query !== this.params.get('q')) {
-      this.params.set('q', this._query);
-      const searching = await this.#search.get(`?${this.params}`);
-      const createdMarkup = this.createMurkup(searching.data.hits);
-      this.renderNewMurkup(createdMarkup);
-      this.increasePages();
-    } else {
-      console.log('you made it');
-    }
+  async fetchPosts() {
+    const params = new URLSearchParams({
+      ...this.params,
+      q: this._query,
+    });
+    return await this.#search.get(`?${params}`);
   }
 
   createMurkup(array) {
@@ -69,13 +64,6 @@ export class api {
         }
       )
       .join(' ');
-  }
-
-  renderNewMurkup(markup) {
-    refs.galleryEl.innerHTML = markup;
-  }
-  addingMarkup(markup) {
-    refs.galleryEl.insertAdjacentElement('beforeEnd', markup);
   }
   increasePages() {
     this.page += 1;
