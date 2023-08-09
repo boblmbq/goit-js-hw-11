@@ -1,11 +1,12 @@
 @import url(header.css);
 @import url(gallery_list.css);
+@import url(loader.css);
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
-ul{
+ul {
   list-style: none;
 }
 
@@ -18,4 +19,13 @@ img {
 }
 p {
   font-size: 0.9em;
+}
+
+
+.hidden{
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  height: 1px;
+  width: 1px;
 }

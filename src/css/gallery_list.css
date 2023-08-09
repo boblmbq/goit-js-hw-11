@@ -6,17 +6,17 @@
   column-gap: 10px;
 }
 
-.gallery-item {
+.photo-card {
   border: 1px solid black;
   margin-bottom: 10px;
   break-inside: avoid;
 }
 
-.gallery-img {
+.photo-card img {
   max-width: 100%;
 }
 
-.gallery-img-descr {
+.info {
   display: flex;
   padding: 2px;
   flex-wrap: wrap;

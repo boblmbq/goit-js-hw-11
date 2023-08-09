@@ -1,11 +1,13 @@
-import { urlFetch } from './class-URLfetch';
-import { createGalleryMurkup } from './createGalleryMurkup';
-import { renderGalleryMarkup } from './renderGalleryMurkup';
-
+import { api } from './api';
+const apiInst = new api();
 export async function onFormSubmit(e) {
-  e.preventDefault();
-  const inputValue = e.currentTarget.elements.searchQuery.value;
-  const caughtResponse = await urlFetch.searchByInput(inputValue);
-  const createdMarkup = createGalleryMurkup(caughtResponse.data.hits);
-  renderGalleryMarkup(createdMarkup);
+  try {
+    e.preventDefault();
+    apiInst.resetPages();
+    apiInst.query = e.currentTarget.elements.searchQuery.value.trim();
+    await apiInst.allIn();
+  } catch (error) {
+    console.log(error);
+    console.log(error.message);
+  }
 }
