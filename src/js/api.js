@@ -1,31 +1,28 @@
 import axios from 'axios';
 
 export class api {
-  constructor() {
-    this._query = '';
-  }
   #search = axios.create({
     baseURL: `https://pixabay.com/api/`,
   });
-
   page = 1;
-  per_page = 40;
+  query = null;
 
   params = {
     key: '38611269-e32dffa05ef058278d905c8af',
     image_type: 'photo',
     orientation: 'horizontal',
     safesearch: true,
-    page: this.page,
-    per_page: this.per_page,
+    per_page: 40,
   };
 
   async fetchPosts() {
     const params = new URLSearchParams({
       ...this.params,
-      q: this._query,
+      page: this.page,
+      q: this.query,
     });
-    return await this.#search.get(`?${params}`);
+    const response =  await this.#search.get(`?${params}`);
+    return response.data
   }
 
   createMurkup(array) {
@@ -70,13 +67,5 @@ export class api {
   }
   resetPages() {
     this.page = 1;
-  }
-
-  get query() {
-    return this._query;
-  }
-
-  set query(newQuery) {
-    this._query = newQuery;
   }
 }
