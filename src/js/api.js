@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { refs } from './refs';
+
 
 export class api {
   #search = axios.create({
@@ -21,8 +23,8 @@ export class api {
       page: this.page,
       q: this.query,
     });
-    const response =  await this.#search.get(`?${params}`);
-    return response.data
+    const response = await this.#search.get(`?${params}`);
+    return response.data;
   }
 
   createMurkup(array) {
@@ -37,8 +39,11 @@ export class api {
           largeImageURL,
           webformatURL,
         }) => {
-          return `<div class="photo-card">
-  <img src="${webformatURL}" data-big="" alt="${tags}" loading="lazy" />
+          return `
+<div class="photo-card">
+  <div class="photo-wrapper">
+    <img src="${webformatURL}" data-big="" alt="${tags}"/>
+  </div>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>
@@ -67,5 +72,11 @@ export class api {
   }
   resetPages() {
     this.page = 1;
+  }
+  loader() {
+    refs.loader.classList.toggle('hidden');
+    refs.form.classList.toggle('hidden');
+    refs.header.classList.toggle('hidden');
+    refs.galleryEl.classList.toggle('hidden');
   }
 }

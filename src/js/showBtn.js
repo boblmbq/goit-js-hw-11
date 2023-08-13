@@ -1,5 +1,9 @@
-import { refs } from './refs';
+// import { refs } from './refs';
 
-export function showBtn() {
-    refs.loadMoreBtn.classList.toggle('hidden');
-}
+// export function showBtn() {
+//     refs.loadMoreBtn.classList.remove('hidden');
+// }
+// export function hideBtn() {
+//   refs.loadMoreBtn.classList.add('hidden');
+// }
+
