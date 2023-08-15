@@ -1,0 +1,12 @@
+.tui-page-btn {
+  border: 0px;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  width: 50px;
+}
+.tui-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

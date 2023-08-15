@@ -2,6 +2,7 @@ import Notiflix from 'notiflix';
 import { api } from './api';
 import { refs } from './refs';
 import Pagination from 'tui-pagination/dist/tui-pagination.min';
+import { createLightBox } from './simplelightbox';
 
 // import { showBtn, hideBtn } from './showBtn';
 
@@ -17,7 +18,9 @@ export async function onFormSubmit(e) {
     if (response.totalHits > 0) {
       const markup = apiInst.createMurkup(response.hits);
       refs.galleryEl.innerHTML = markup;
+      Notiflix.Notify.success(`Hooray! We found ${response.totalHits} images.`);
       createPag(response.totalHits, response.hits.length);
+      createLightBox();
     } else {
       refs.galleryEl.innerHTML = '';
       Notiflix.Notify.failure(
@@ -59,8 +62,25 @@ function createPag(totalItems, itemsPerPage) {
     visiblePages: 5,
     page: 1,
     centerAlign: true,
+    template: {
+      page: `<a href="#" class="tui-page-btn">{{page}}</a>`,
+      currentPage: `<strong class="tui-page-btn tui-is-selected">{{page}}</strong>`,
+      moveButton:
+        `<a href="#" class="tui-page-btn tui-{{type}}">` +
+        `<span class="tui-ico-{{type}}">{{type}}</span>` +
+        '</a>',
+      disabledMoveButton:
+        `<span class="tui-page-btn tui-is-disabled tui-{{type}}">` +
+        `<span class="tui-ico-{{type}}">{{type}}</span>` +
+        '</span>',
+      moreButton:
+        `<a href="#" class="tui-page-btn tui-{{type}}-is-ellip">` +
+        '<span class="tui-ico-ellip">...</span>' +
+        '</a>',
+    },
   });
   pagination.on('beforeMove', async e => {
+    apiInst.loader();
     const { page } = e;
     apiInst.page = page;
     try {
@@ -68,6 +88,7 @@ function createPag(totalItems, itemsPerPage) {
       if (response.totalHits > 0) {
         const markup = apiInst.createMurkup(response.hits);
         refs.galleryEl.innerHTML = markup;
+        createLightBox();
       } else {
         refs.galleryEl.innerHTML = '';
         Notiflix.Notify.failure(
@@ -78,5 +99,6 @@ function createPag(totalItems, itemsPerPage) {
       console.log(error);
       console.log(error.message);
     }
+    apiInst.loader();
   });
 }

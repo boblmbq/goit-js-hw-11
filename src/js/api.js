@@ -42,7 +42,7 @@ export class api {
           return `
 <div class="photo-card">
   <div class="photo-wrapper">
-    <img src="${webformatURL}" data-big="" alt="${tags}"/>
+    <img src="${webformatURL}" data-large="${largeImageURL}" alt="${tags}"/>
   </div>
   <div class="info">
     <p class="info-item">
@@ -78,5 +78,6 @@ export class api {
     refs.form.classList.toggle('hidden');
     refs.header.classList.toggle('hidden');
     refs.galleryEl.classList.toggle('hidden');
+    refs.pagination.classList.toggle("hidden")
   }
 }

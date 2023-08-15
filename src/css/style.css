@@ -1,6 +1,7 @@
 @import url(header.css);
 @import url(gallery_list.css);
 @import url(loader.css);
+@import url(pag.css);
 * {
   box-sizing: border-box;
   padding: 0;
