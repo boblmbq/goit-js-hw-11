@@ -3,16 +3,18 @@ import { api } from './api';
 import { refs } from './refs';
 import Pagination from 'tui-pagination/dist/tui-pagination.min';
 import { createLightBox } from './simplelightbox';
-
 // import { showBtn, hideBtn } from './showBtn';
+export const INPUT_VALUE = 'input value';
+export const DATA = 'data';
 
-const apiInst = new api();
+export const apiInst = new api();
 export async function onFormSubmit(e) {
   e.preventDefault();
   apiInst.loader();
   apiInst.resetPages();
-  apiInst.query = e.currentTarget.elements.searchQuery.value.trim();
-
+  const query = e.currentTarget.elements.searchQuery.value.trim();
+  apiInst.query = query;
+  apiInst.saveToSession(INPUT_VALUE, query);
   try {
     const response = await apiInst.fetchPosts();
     if (response.totalHits > 0) {
@@ -55,13 +57,12 @@ export async function onFormSubmit(e) {
 //   }
 // }
 
-function createPag(totalItems, itemsPerPage) {
+export function createPag(totalItems, itemsPerPage) {
   const pagination = new Pagination('pagination', {
     totalItems: totalItems,
     itemsPerPage: itemsPerPage,
     visiblePages: 5,
     page: 1,
-    centerAlign: true,
     template: {
       page: `<a href="#" class="tui-page-btn">{{page}}</a>`,
       currentPage: `<strong class="tui-page-btn tui-is-selected">{{page}}</strong>`,
